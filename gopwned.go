@@ -129,7 +129,9 @@ func (c *Client) getBreaches(resource string, opts url.Values) ([]*Breach, error
 	defer resp.Body.Close()
 
 	var breaches []*Breach
-	err = json.NewDecoder(resp.Body).Decode(&breaches)
+	if resp.StatusCode == 200 {
+		err = json.NewDecoder(resp.Body).Decode(&breaches)
+	}
 	return breaches, err
 }
 
@@ -174,7 +176,9 @@ func (c *Client) GetDataClasses() (*DataClasses, error) {
 	defer resp.Body.Close()
 
 	var dataclasses *DataClasses
-	err = json.NewDecoder(resp.Body).Decode(&dataclasses)
+	if resp.StatusCode == 200 {
+		err = json.NewDecoder(resp.Body).Decode(&dataclasses)
+	}
 	return dataclasses, err
 }
 
@@ -188,7 +192,9 @@ func (c *Client) GetAllPastesForAccount(account string) ([]*Paste, error) {
 	defer resp.Body.Close()
 
 	var pastes []*Paste
-	err = json.NewDecoder(resp.Body).Decode(&pastes)
+	if resp.StatusCode == 200 {
+		err = json.NewDecoder(resp.Body).Decode(&pastes)
+	}
 	return pastes, err
 }
 
